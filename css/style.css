@@ -1,0 +1,189 @@
+/* Базові налаштування (Box Model) */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.5;
+    color: #2d2638;
+    background-color: #f7f4f9;
+}
+
+/* Макет */
+main, aside {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+section {
+    margin-bottom: 2.5rem;
+}
+
+/* Header & Nav */
+header {
+    background: linear-gradient(135deg, #7c5cbf, #5a3d99);
+    color: #ffffff;
+    padding: 1.5rem 2rem; /* Відступ від лівого краю вікна */
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #482f7d;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    text-align: left; 
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start; 
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #f0eaf8;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Форма додавання операції */
+#add-transaction {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e8e0f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4a3e56;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d4c5e2;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+}
+
+button[type="submit"] {
+    background-color: #7c5cbf;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #6745a3;
+}
+
+/* Картки операцій */
+.card {
+    background-color: #ffffff;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ebdff5;
+    margin-bottom: 0.75rem;
+    border-radius: 4px;
+}
+
+.card h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #786a8b;
+}
+
+.amount {
+    font-weight: bold;
+}
+
+.amount--income {
+    color: #2e7d32;
+}
+
+.amount--expense {
+    color: #c62828;
+}
+
+/* Aside та Footer */
+#summary-balance {
+    background-color: #f3ebfa;
+    border: 1px solid #e2d1f3;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#summary-balance h2 {
+    margin-top: 0;
+    color: #5a3d99;
+}
+
+#summary-balance p {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+}
+
+#summary-balance strong {
+    font-size: 2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #ece4f2;
+    color: #786a8b;
+    font-size: 0.875rem;
+    border-top: 1px solid #e2d1f3;
+}

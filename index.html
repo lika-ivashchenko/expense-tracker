@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
+    <header class="site-header">
         <h1>Трекер витрат</h1>
         <nav>
             <ul>
@@ -17,83 +17,100 @@
             </ul>
         </nav>
     </header>
-
-    <main>
-        <!-- Секція додавання операції -->
-        <section id="add-transaction">
-            <h2>Додати нову операцію</h2>
-            <form action="#" method="post">
-                <div class="form-group">
-                    <label for="transaction-name">Назва операції:</label>
-                    <input type="text" id="transaction-name" name="name" placeholder="Наприклад: Продукти" required>
+ 
+    <div class="layout">
+        <main>
+            <!-- Секція додавання операції -->
+            <section id="add-transaction">
+                <h2>Додати нову операцію</h2>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="transaction-name">Назва операції:</label>
+                        <input type="text" id="transaction-name" name="name" placeholder="Наприклад: Продукти" required>
+                    </div>
+ 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="transaction-amount">Сума (грн):</label>
+                            <input type="number" id="transaction-amount" name="amount" placeholder="150" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-category">Категорія:</label>
+                            <select id="transaction-category" name="category">
+                                <option value="food">Їжа та продукти</option>
+                                <option value="transport">Транспорт</option>
+                                <option value="entertainment">Розваги та відпочинок</option>
+                                <option value="health">Здоров'я та аптека</option>
+                                <option value="shopping">Одяг та шопінг</option>
+                                <option value="housing">Комунальні / Житло</option>
+                                <option value="other">Інше</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-date">Дата:</label>
+                            <input type="date" id="transaction-date" name="date" required>
+                        </div>
+                    </div>
+ 
+                    <button type="submit">Додати запис</button>
+                </form>
+            </section>
+ 
+            <!-- Секція списку операцій (рядки) -->
+            <section id="transactions-list">
+                <h2>Історія операцій</h2>
+ 
+                <div class="transactions">
+                    <article class="transaction">
+                        <h3 class="transaction__name">Зарплата</h3>
+                        <p class="transaction__category">Дохід</p>
+                        <time class="transaction__date" datetime="2026-09-15">15.09.2026</time>
+                        <span class="amount amount--income">+35000.00 грн</span>
+                    </article>
+ 
+                    <article class="transaction">
+                        <h3 class="transaction__name">Покупка продуктів</h3>
+                        <p class="transaction__category">Їжа та продукти</p>
+                        <time class="transaction__date" datetime="2026-09-14">14.09.2026</time>
+                        <span class="amount amount--expense">-530.00 грн</span>
+                    </article>
+ 
+                    <article class="transaction">
+                        <h3 class="transaction__name">Проїзд у транспорті</h3>
+                        <p class="transaction__category">Транспорт</p>
+                        <time class="transaction__date" datetime="2026-09-14">14.09.2026</time>
+                        <span class="amount amount--expense">-30.00 грн</span>
+                    </article>
+ 
+                    <article class="transaction">
+                        <h3 class="transaction__name">Квиток у кіно</h3>
+                        <p class="transaction__category">Розваги та відпочинок</p>
+                        <time class="transaction__date" datetime="2026-09-13">13.09.2026</time>
+                        <span class="amount amount--expense">-200.00 грн</span>
+                    </article>
+ 
+                    <article class="transaction">
+                        <h3 class="transaction__name">Купівля вітамінів</h3>
+                        <p class="transaction__category">Здоров'я та аптека</p>
+                        <time class="transaction__date" datetime="2026-09-12">12.09.2026</time>
+                        <span class="amount amount--expense">-470.00 грн</span>
+                    </article>
                 </div>
-                <div class="form-group">
-                    <label for="transaction-amount">Сума (грн):</label>
-                    <input type="number" id="transaction-amount" name="amount" placeholder="150" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label for="transaction-category">Категорія:</label>
-                    <select id="transaction-category" name="category">
-                        <option value="food">Їжа та продукти</option>
-                        <option value="transport">Транспорт</option>
-                        <option value="entertainment">Розваги та відпочинок</option>
-                        <option value="health">Здоров'я та аптека</option>
-                        <option value="shopping">Одяг та шопінг</option>
-                        <option value="housing">Комунальні / Житло</option>
-                        <option value="other">Інше</option>
-                    </select>
-                </div>
-                <button type="submit">Додати запис</button>
-            </form>
-        </section>
-
-        <!-- Секція списку операцій -->
-        <section id="transactions-list">
-            <h2>Історія операцій</h2>
-            
-            <article class="card">
-                <h3>Зарплата <span class="amount amount--income">+35000.00 грн</span></h3>
-                <p><strong>Категорія:</strong> Дохід</p>
-                <p><time datetime="2026-09-15">15 вересня 2026</time></p>
-            </article>
-
-            <article class="card">
-                <h3>Покупка продуктів <span class="amount amount--expense">-530.00 грн</span></h3>
-                <p><strong>Категорія:</strong> Їжа та продукти</p>
-                <p><time datetime="2026-09-14">14 вересня 2026</time></p>
-            </article>
-
-            <article class="card">
-                <h3>Проїзд у транспорті <span class="amount amount--expense">-30.00 грн</span></h3>
-                <p><strong>Категорія:</strong> Транспорт</p>
-                <p><time datetime="2026-09-14">14 вересня 2026</time></p>
-            </article>
-
-            <article class="card">
-                <h3>Квиток у кіно <span class="amount amount--expense">-200.00 грн</span></h3>
-                <p><strong>Категорія:</strong> Розваги та відпочинок</p>
-                <p><time datetime="2026-09-13">13 вересня 2026</time></p>
-            </article>
-
-            <article class="card">
-                <h3>Купівля вітамінів <span class="amount amount--expense">-470.00 грн</span></h3>
-                <p><strong>Категорія:</strong> Здоров'я та аптека</p>
-                <p><time datetime="2026-09-12">12 вересня 2026</time></p>
-            </article>
-        </section>
-    </main>
-
-    <!-- Підсумковий баланс -->
-    <aside id="summary-balance">
-        <h2>Підсумковий баланс</h2>
-        <p>Загальні витрати: <strong class="amount--expense">1230.00 грн</strong></p>
-        <p>Залишок ліміту: <strong class="amount--income">33770.00 грн</strong></p>
-    </aside>
-
+            </section>
+        </main>
+ 
+        <!-- Підсумковий баланс -->
+        <aside id="summary-balance">
+            <h2>Підсумковий баланс</h2>
+            <p>Загальні витрати: <strong class="amount--expense">1230.00 грн</strong></p>
+            <p>Залишок ліміту: <strong class="amount--income">33770.00 грн</strong></p>
+        </aside>
+    </div>
+ 
     <footer>
         <p>Розробник: Анжеліка Іващенко &copy; 2026 | Навчальний проєкт</p>
     </footer>
-
+ 
     <script src="js/app.js"></script>
 </body>
 </html>

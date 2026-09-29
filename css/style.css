@@ -1,10 +1,15 @@
-/* Базові налаштування (Box Model) */
+/* Базові налаштування */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
-
+ 
+img {
+    max-width: 100%;
+    height: auto;
+}
+ 
 body {
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -12,45 +17,39 @@ body {
     color: #2d2638;
     background-color: #f7f4f9;
 }
-
-/* Макет */
-main, aside {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 1.25rem;
-}
-
-section {
-    margin-bottom: 2.5rem;
-}
-
-/* Header & Nav */
-header {
+ 
+/* Мобільна версія */
+.site-header {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.75rem;
     background: linear-gradient(135deg, #7c5cbf, #5a3d99);
     color: #ffffff;
-    padding: 1.5rem 2rem; /* Відступ від лівого краю вікна */
-    margin-bottom: 2rem;
+    padding: 1.25rem 1rem;
+    margin-bottom: 1.5rem;
     border-bottom: 4px solid #482f7d;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
-
-header h1 {
-    margin: 0 0 1rem 0;
-    font-size: 2rem;
-    text-align: left; 
+ 
+.site-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: left;
 }
-
+ 
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: flex-start; 
-    gap: 1.5rem;
+    flex-direction: column;
     flex-wrap: wrap;
+    gap: 0.25rem;
 }
-
+ 
 nav a {
+    display: inline-block;
     color: #f0eaf8;
     text-decoration: none;
     font-weight: 500;
@@ -58,53 +57,79 @@ nav a {
     border-radius: 4px;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
-
+ 
 nav a:hover {
     color: #ffffff;
     background-color: rgba(255, 255, 255, 0.2);
 }
-
-/* Форма додавання операції */
+ 
+.layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+ 
+section {
+    margin-bottom: 2rem;
+}
+ 
 #add-transaction {
     background-color: #ffffff;
-    padding: 1.5rem;
+    padding: 1.25rem;
     border-radius: 8px;
     border: 1px solid #e8e0f0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
-
+ 
 .form-group {
     margin-bottom: 1.25rem;
 }
-
+ 
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+ 
+.form-row .form-group {
+    flex: 1;
+    min-width: 0;
+}
+ 
 label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: #4a3e56;
 }
-
+ 
 input[type="text"],
 input[type="number"],
+input[type="date"],
 select {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #d4c5e2;
     border-radius: 6px;
     font-size: 1rem;
+    font-family: inherit;
     background-color: #fff;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
+ 
 input[type="text"]:focus,
 input[type="number"]:focus,
+input[type="date"]:focus,
 select:focus {
     outline: none;
     border-color: #8b5cf6;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
 }
-
+ 
 button[type="submit"] {
+    width: 100%;
     background-color: #7c5cbf;
     color: white;
     padding: 0.75rem 1.5rem;
@@ -115,70 +140,91 @@ button[type="submit"] {
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-
+ 
 button[type="submit"]:hover {
     background-color: #6745a3;
 }
-
-/* Картки операцій */
-.card {
-    background-color: #ffffff;
-    padding: 10px 15px;
-    border-bottom: 1px solid #ebdff5;
-    margin-bottom: 0.75rem;
-    border-radius: 4px;
-}
-
-.card h3 {
-    margin: 0 0 0.25rem 0;
-    font-size: 1.1rem;
+ 
+.transactions {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
 }
-
-.card p {
-    margin: 0.25rem 0;
+ 
+.transaction {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "name     amount"
+        "category date";
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ebdff5;
+    border-radius: 6px;
+}
+ 
+.transaction__name {
+    grid-area: name;
+    margin: 0;
+    font-size: 1.05rem;
+}
+ 
+.transaction__category {
+    grid-area: category;
+    margin: 0;
     font-size: 0.9rem;
     color: #786a8b;
 }
-
-.amount {
-    font-weight: bold;
+ 
+.transaction__date {
+    grid-area: date;
+    font-size: 0.9rem;
+    color: #786a8b;
+    text-align: right;
 }
-
+ 
+.amount {
+    grid-area: amount;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+}
+ 
 .amount--income {
     color: #2e7d32;
 }
-
+ 
 .amount--expense {
     color: #c62828;
 }
-
-/* Aside та Footer */
+ 
 #summary-balance {
     background-color: #f3ebfa;
     border: 1px solid #e2d1f3;
     border-radius: 8px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
 }
-
+ 
 #summary-balance h2 {
     margin-top: 0;
     color: #5a3d99;
 }
-
+ 
 #summary-balance p {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin: 0.5rem 0;
 }
-
+ 
 #summary-balance strong {
-    font-size: 2rem;
+    display: block;
+    font-size: 1.75rem;
+    overflow-wrap: anywhere;
 }
-
+ 
 footer {
     text-align: center;
     padding: 1.5rem;
@@ -186,4 +232,76 @@ footer {
     color: #786a8b;
     font-size: 0.875rem;
     border-top: 1px solid #e2d1f3;
+}
+ 
+/* Планшет */
+@media (min-width: 600px) {
+    .site-header {
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+    }
+ 
+    nav ul {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+ 
+    .layout {
+        padding: 0 1.5rem;
+    }
+ 
+    #add-transaction {
+        padding: 1.5rem;
+    }
+ 
+    .form-row {
+        flex-direction: row;
+        gap: 1rem;
+    }
+ 
+    button[type="submit"] {
+        width: auto;
+    }
+ 
+    .transaction {
+        grid-template-columns: 2fr 1.5fr 1fr 1fr;
+        grid-template-areas: "name category date amount";
+        padding: 0.75rem 1.25rem;
+    }
+ 
+    .transaction__date {
+        text-align: left;
+    }
+}
+ 
+/* Десктоп */
+@media (min-width: 1024px) {
+    .site-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 3rem;
+    }
+ 
+    .site-header h1 {
+        font-size: 2rem;
+    }
+ 
+    .layout {
+        grid-template-columns: 3fr 1fr;
+        gap: 24px;
+        align-items: start;
+        padding: 0 2rem;
+    }
+ 
+    /* Блок залишається видимим під час прокручування */
+    #summary-balance {
+        position: sticky;
+        top: 1rem;
+        margin-bottom: 0;
+    }
+ 
+    #summary-balance strong {
+        font-size: 1.5rem;
+    }
 }

@@ -1,4 +1,24 @@
-/* Базові налаштування */
+:root {
+    --primary: #4b3a8c;
+    --primary-dark: #382a6e;
+    --secondary: #ece7f6;
+    --bg: #f6f4fa;
+    --surface: #ffffff;
+    --border: #ddd5ec;
+    --text: #25202e;
+    --text-muted: #5f566e;
+    --income: #1b6b3a;
+    --expense: #b3261e;
+ 
+    --fs-sm: 0.875rem;
+    --fs-md: 1rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 1.75rem;
+    --fs-xxl: 2.25rem;
+ 
+    --font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+ 
 *,
 *::before,
 *::after {
@@ -12,30 +32,44 @@ img {
  
 body {
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font);
+    font-size: var(--fs-md);
     line-height: 1.5;
-    color: #2d2638;
-    background-color: #f7f4f9;
+    color: var(--text);
+    background-color: var(--bg);
 }
  
-/* Мобільна версія */
+h1,
+h2,
+h3 {
+    font-weight: 800;
+    line-height: 1.2;
+}
+ 
+h2 {
+    margin: 0 0 1rem;
+    font-size: var(--fs-xl);
+}
+ 
+:focus-visible {
+    outline: 3px solid #8b6fe0;
+    outline-offset: 2px;
+}
+ 
+/* Шапка */
 .site-header {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 0.75rem;
-    background: linear-gradient(135deg, #7c5cbf, #5a3d99);
+    background-color: var(--primary);
     color: #ffffff;
     padding: 1.25rem 1rem;
     margin-bottom: 1.5rem;
-    border-bottom: 4px solid #482f7d;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
  
 .site-header h1 {
     margin: 0;
-    font-size: 1.5rem;
-    text-align: left;
+    font-size: var(--fs-lg);
 }
  
 nav ul {
@@ -44,22 +78,22 @@ nav ul {
     margin: 0;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 0.25rem;
 }
  
 nav a {
     display: inline-block;
-    color: #f0eaf8;
+    color: #ffffff;
     text-decoration: none;
     font-weight: 500;
+    font-size: var(--fs-sm);
     padding: 0.25rem 0.5rem;
+    margin-left: -0.5rem;
     border-radius: 4px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease;
 }
  
 nav a:hover {
-    color: #ffffff;
     background-color: rgba(255, 255, 255, 0.2);
 }
  
@@ -76,12 +110,107 @@ section {
     margin-bottom: 2rem;
 }
  
+/*
+   Нечітка вимога «зрозуміло з першого погляду, чи все гаразд із бюджетом».
+   Я перетворила її на великий блок балансу над усім контентом, який
+   змінює колір і емодзі залежно від частки ліміту, що залишилась:
+   понад 50% — зелений 😄, 15–50% — бурштиновий 😐, менше 15% або мінус — графітово-червоний ☠️.
+   Колір і емодзі зчитуються швидше за цифри, тому стан бюджету видно ще до того,
+   як користувач почав читати. Прогрес-смуга додає точніший орієнтир.
+*/
+.balance {
+    --bal-bg: linear-gradient(135deg, #065f46, #0a7a56);
+    --bal-text: #ffffff;
+    --bal-track: rgba(255, 255, 255, 0.28);
+    --bal-fill: #ffffff;
+    --bal-chip: rgba(255, 255, 255, 0.18);
+ 
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: var(--bal-bg);
+    color: var(--bal-text);
+}
+ 
+.balance[data-state="warn"] {
+    --bal-bg: linear-gradient(135deg, #f7c25b, #e89a1f);
+    --bal-text: #3a2200;
+    --bal-track: rgba(58, 34, 0, 0.2);
+    --bal-fill: #3a2200;
+    --bal-chip: rgba(58, 34, 0, 0.12);
+}
+ 
+.balance[data-state="bad"] {
+    --bal-bg: linear-gradient(135deg, #2b2327, #4a1a22);
+    --bal-text: #ffffff;
+    --bal-track: rgba(255, 255, 255, 0.2);
+    --bal-fill: #ff6b6b;
+    --bal-chip: rgba(255, 107, 107, 0.22);
+    border-left: 8px solid #ff5a5f;
+}
+ 
+.balance__mood {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+ 
+.balance__label {
+    margin: 0;
+    font-size: var(--fs-md);
+    font-weight: 600;
+}
+ 
+.balance__value {
+    margin: 0.25rem 0 0.5rem;
+    font-size: var(--fs-xxl);
+    font-weight: 800;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+ 
+.balance__status {
+    display: inline-block;
+    margin: 0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background-color: var(--bal-chip);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+}
+ 
+.balance__bar {
+    height: 10px;
+    border-radius: 999px;
+    background-color: var(--bal-track);
+    overflow: hidden;
+}
+ 
+.balance__bar span {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background-color: var(--bal-fill);
+    transition: width 0.4s ease;
+}
+ 
+.balance__spent {
+    margin: 0.5rem 0 0;
+    font-size: var(--fs-sm);
+}
+ 
+/* Форма */
 #add-transaction {
-    background-color: #ffffff;
+    background-color: var(--surface);
     padding: 1.25rem;
     border-radius: 8px;
-    border: 1px solid #e8e0f0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border);
+}
+ 
+#add-transaction h2 {
+    font-size: var(--fs-lg);
 }
  
 .form-group {
@@ -101,8 +230,9 @@ section {
 label {
     display: block;
     margin-bottom: 0.5rem;
+    font-size: var(--fs-sm);
     font-weight: 600;
-    color: #4a3e56;
+    color: var(--text-muted);
 }
  
 input[type="text"],
@@ -111,10 +241,11 @@ input[type="date"],
 select {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #d4c5e2;
+    border: 1px solid #c9bddf;
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: var(--fs-md);
     font-family: inherit;
+    color: var(--text);
     background-color: #fff;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -124,27 +255,29 @@ input[type="number"]:focus,
 input[type="date"]:focus,
 select:focus {
     outline: none;
-    border-color: #8b5cf6;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(75, 58, 140, 0.25);
 }
  
 button[type="submit"] {
     width: 100%;
-    background-color: #7c5cbf;
-    color: white;
+    background-color: var(--primary);
+    color: #ffffff;
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 6px;
-    font-size: 1rem;
+    font-family: inherit;
+    font-size: var(--fs-md);
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
  
 button[type="submit"]:hover {
-    background-color: #6745a3;
+    background-color: var(--primary-dark);
 }
  
+/* Історія */
 .transactions {
     display: flex;
     flex-direction: column;
@@ -158,80 +291,88 @@ button[type="submit"]:hover {
         "name     amount"
         "category date";
     column-gap: 0.75rem;
-    row-gap: 0.25rem;
+    row-gap: 0.5rem;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var(--surface);
     padding: 0.75rem 1rem;
-    border: 1px solid #ebdff5;
+    border: 1px solid var(--border);
     border-radius: 6px;
 }
  
 .transaction__name {
     grid-area: name;
     margin: 0;
-    font-size: 1.05rem;
+    font-size: var(--fs-md);
+    font-weight: 600;
 }
  
 .transaction__category {
     grid-area: category;
     margin: 0;
-    font-size: 0.9rem;
-    color: #786a8b;
 }
  
 .transaction__date {
     grid-area: date;
-    font-size: 0.9rem;
-    color: #786a8b;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
     text-align: right;
 }
  
 .amount {
     grid-area: amount;
-    font-weight: bold;
+    font-weight: 800;
     text-align: right;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
 }
  
 .amount--income {
-    color: #2e7d32;
+    color: var(--income);
 }
  
 .amount--expense {
-    color: #c62828;
+    color: var(--expense);
 }
  
-#summary-balance {
-    background-color: #f3ebfa;
-    border: 1px solid #e2d1f3;
-    border-radius: 8px;
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
+/* Мітки категорій */
+.cat {
+    --dot: #8a8a8a;
+    --cat-bg: #efefef;
+ 
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: 999px;
+    background-color: var(--cat-bg);
+    color: var(--text);
+    font-size: var(--fs-sm);
+    font-weight: 500;
 }
  
-#summary-balance h2 {
-    margin-top: 0;
-    color: #5a3d99;
+.cat::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--dot);
 }
  
-#summary-balance p {
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-}
- 
-#summary-balance strong {
-    display: block;
-    font-size: 1.75rem;
-    overflow-wrap: anywhere;
-}
+.cat--food { --dot: #e07a1f; --cat-bg: #fdf0e3; }
+.cat--transport { --dot: #2a7de1; --cat-bg: #e6f0fc; }
+.cat--entertainment { --dot: #b04fd0; --cat-bg: #f5e8fa; }
+.cat--health { --dot: #1fa38a; --cat-bg: #e2f6f2; }
+.cat--shopping { --dot: #d6457f; --cat-bg: #fce8f0; }
+.cat--housing { --dot: #6b7a8f; --cat-bg: #ebeef2; }
+.cat--income { --dot: #2e9e5b; --cat-bg: #e4f5ea; }
  
 footer {
     text-align: center;
     padding: 1.5rem;
-    background-color: #ece4f2;
-    color: #786a8b;
-    font-size: 0.875rem;
-    border-top: 1px solid #e2d1f3;
+    background-color: var(--secondary);
+    color: var(--text-muted);
+    font-size: var(--fs-sm);
+    border-top: 1px solid var(--border);
 }
  
 /* Планшет */
@@ -248,6 +389,21 @@ footer {
  
     .layout {
         padding: 0 1.5rem;
+    }
+ 
+    .balance {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        column-gap: 1.5rem;
+        padding: 1.5rem 2rem;
+    }
+ 
+    .balance__meta {
+        grid-column: 1 / -1;
+    }
+ 
+    .balance__mood {
+        font-size: 4.5rem;
     }
  
     #add-transaction {
@@ -284,24 +440,49 @@ footer {
     }
  
     .site-header h1 {
-        font-size: 2rem;
+        font-size: var(--fs-xxl);
     }
  
     .layout {
-        grid-template-columns: 3fr 1fr;
-        gap: 24px;
-        align-items: start;
         padding: 0 2rem;
     }
  
-    /* Блок залишається видимим під час прокручування */
-    #summary-balance {
-        position: sticky;
-        top: 1rem;
+    .balance {
+        grid-template-columns: auto 1fr 320px;
+        padding: 2rem 2.5rem;
+    }
+ 
+    .balance__meta {
+        grid-column: auto;
+    }
+ 
+    .balance__value {
+        font-size: 3.5rem;
+    }
+ 
+    main {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+ 
+    main section {
         margin-bottom: 0;
     }
  
-    #summary-balance strong {
-        font-size: 1.5rem;
+    #add-transaction {
+        position: sticky;
+        top: 1rem;
+    }
+ 
+    #add-transaction .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+ 
+    #add-transaction button[type="submit"] {
+        width: 100%;
     }
 }
+ 
